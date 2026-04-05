@@ -2,7 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
-    return [{ source: "/api/:path*", destination: "http://localhost:8000/:path*" }];
+    return [
+      {
+        source: "/api/:path*",
+        destination: (process.env.NEXT_PUBLIC_API_URL || "http://38.248.12.151:8000") + "/:path*",
+      },
+    ];
   },
 };
 
