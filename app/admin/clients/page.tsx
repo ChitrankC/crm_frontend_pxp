@@ -25,7 +25,7 @@ export default function AdminClientsPage() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const { data: tenants = [], isLoading } = useQuery({ queryKey: ["tenants"], queryFn: () => listTenants() });
+  const { data: tenants = [], isLoading } = useQuery({ queryKey: ["tenants"], queryFn: listTenants });
   const create = useMutation({
     mutationFn: async () => {
       const tenant = await createTenant(companyName);

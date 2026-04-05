@@ -29,7 +29,7 @@ export default function ProspectDetailPage() {
   const { data: prospect, isLoading } = useQuery({ queryKey: ["prospect", id], queryFn: () => getProspect(id) });
   const { data: messages } = useQuery({ queryKey: ["messages", id], queryFn: () => listMessages(id) });
   const { data: calls } = useQuery({ queryKey: ["calls", id], queryFn: () => listCalls(id) });
-  const { data: users } = useQuery({ queryKey: ["users"], queryFn: () => listUsers() });
+  const { data: users } = useQuery({ queryKey: ["users"], queryFn: listUsers });
 
   const repName = (uid: string | undefined) => users?.find((u) => u.id === uid)?.name ?? "-";
 

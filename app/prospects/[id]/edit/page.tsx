@@ -17,7 +17,7 @@ export default function EditProspectPage() {
   const queryClient = useQueryClient();
 
   const { data: prospect, isLoading } = useQuery({ queryKey: ["prospect", id], queryFn: () => getProspect(id) });
-  const { data: users } = useQuery({ queryKey: ["users"], queryFn: () => listUsers() });
+  const { data: users } = useQuery({ queryKey: ["users"], queryFn: listUsers });
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");

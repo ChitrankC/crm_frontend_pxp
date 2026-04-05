@@ -20,8 +20,8 @@ export default function NewMeetingPage() {
   const [time, setTime] = useState("10:00");
   const [notes, setNotes] = useState("");
 
-  const { data: prospects } = useQuery({ queryKey: ["prospects"], queryFn: () => listProspects() });
-  const { data: users } = useQuery({ queryKey: ["users"], queryFn: () => listUsers() });
+  const { data: prospects } = useQuery({ queryKey: ["prospects"], queryFn: listProspects });
+  const { data: users } = useQuery({ queryKey: ["users"], queryFn: listUsers });
 
   const create = useMutation({
     mutationFn: () =>

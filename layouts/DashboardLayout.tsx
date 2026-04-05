@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button";
 import { User } from "@/services/api";
 import { cn } from "@/lib/utils";
 
-const nav = [
+const navAll = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/prospects", label: "Prospects" },
   { href: "/pipeline", label: "Pipeline" },
   { href: "/calendar", label: "Calendar" },
   { href: "/messaging", label: "Messaging" },
   { href: "/calls", label: "Calls" },
+  { href: "/settings/sheet-import", label: "Sheet import", roles: ["ClientAdmin", "SalesRep"] as const },
 ];
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -41,6 +42,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }
 
   if (!user) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+
+  const nav = navAll.filter((item) => {
+    if ("roles" in item && item.roles) {
+      return (item.roles as readonly string[]).includes(user.role);
+    }
+    return true;
+  });
 
   return (
     <div className="min-h-screen flex flex-col">

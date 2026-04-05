@@ -257,3 +257,37 @@ export async function listUsers() {
   const { data } = await api.get<User[]>("/users");
   return data;
 }
+
+// Sheet import (per-tenant CSV from Google Sheets or any HTTPS CSV URL)
+export interface SheetImportSettings {
+  sheet_import_url: string | null;
+  configured: boolean;
+}
+
+export interface SheetImportSyncResult {
+  imported: number;
+  skipped: number;
+  skipped_duplicates: number;
+  errors: number;
+}
+
+export async function getSheetImportSettings(params?: { tenant_id?: string }) {
+  const { data } = await api.get<SheetImportSettings>("/tenant/sheet-import", { params });
+  return data;
+}
+
+export async function updateSheetImportSettings(
+  body: { sheet_import_url: string | null },
+  params?: { tenant_id?: string }
+) {
+  const { data } = await api.put<SheetImportSettings>("/tenant/sheet-import", body, { params });
+  return data;
+}
+
+export async function syncSheetImport(
+  body?: { url?: string | null; skip_duplicates?: boolean },
+  params?: { tenant_id?: string }
+) {
+  const { data } = await api.post<SheetImportSyncResult>("/tenant/sheet-import/sync", body ?? {}, { params });
+  return data;
+}

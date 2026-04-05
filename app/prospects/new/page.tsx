@@ -23,7 +23,7 @@ export default function NewProspectPage() {
   const [status, setStatus] = useState("NOT_CONTACTED");
   const [assignedRep, setAssignedRep] = useState("");
 
-  const { data: users } = useQuery({ queryKey: ["users"], queryFn: () => listUsers() });
+  const { data: users } = useQuery({ queryKey: ["users"], queryFn: listUsers });
   const create = useMutation({
     mutationFn: (body: Parameters<typeof createProspect>[0]) => createProspect(body),
     onSuccess: () => {

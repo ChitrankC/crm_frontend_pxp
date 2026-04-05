@@ -28,7 +28,7 @@ export default function ProspectsPage() {
   const [lossMin, setLossMin] = useState("");
   const [lossMax, setLossMax] = useState("");
 
-  const { data: users } = useQuery({ queryKey: ["users"], queryFn: () => listUsers() });
+  const { data: users } = useQuery({ queryKey: ["users"], queryFn: listUsers });
   const { data: prospects, isLoading } = useQuery({
     queryKey: ["prospects", location, statusFilter, lossMin, lossMax],
     queryFn: () =>
