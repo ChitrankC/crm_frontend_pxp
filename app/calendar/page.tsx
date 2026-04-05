@@ -22,8 +22,8 @@ export default function CalendarPage() {
     queryKey: ["meetings", format(monthStart, "yyyy-MM"), format(monthEnd, "yyyy-MM")],
     queryFn: () => listMeetings({ from_date: format(monthStart, "yyyy-MM-dd"), to_date: format(monthEnd, "yyyy-MM-dd") }),
   });
-  const { data: prospects } = useQuery({ queryKey: ["prospects"], queryFn: listProspects });
-  const { data: users } = useQuery({ queryKey: ["users"], queryFn: listUsers });
+  const { data: prospects } = useQuery({ queryKey: ["prospects"], queryFn: () => listProspects() });
+  const { data: users } = useQuery({ queryKey: ["users"], queryFn: () => listUsers() });
 
   const deleteOne = useMutation({ mutationFn: deleteMeeting, onSuccess: () => queryClient.invalidateQueries({ queryKey: ["meetings"] }) });
 

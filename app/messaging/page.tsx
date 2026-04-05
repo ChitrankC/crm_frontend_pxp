@@ -23,7 +23,7 @@ export default function MessagingPage() {
     if (prospectIdParam) setSelectedId(prospectIdParam);
   }, [prospectIdParam]);
 
-  const { data: prospects = [] } = useQuery({ queryKey: ["prospects"], queryFn: listProspects });
+  const { data: prospects = [] } = useQuery({ queryKey: ["prospects"], queryFn: () => listProspects() });
   const { data: messages = [] } = useQuery({
     queryKey: ["messages", selectedId ?? ""],
     queryFn: () => listMessages(selectedId ?? undefined),

@@ -20,7 +20,7 @@ export default function CallsPage() {
     if (prospectIdParam) setSelectedId(prospectIdParam);
   }, [prospectIdParam]);
 
-  const { data: prospects = [] } = useQuery({ queryKey: ["prospects"], queryFn: listProspects });
+  const { data: prospects = [] } = useQuery({ queryKey: ["prospects"], queryFn: () => listProspects() });
   const { data: calls = [] } = useQuery({
     queryKey: ["calls", selectedId ?? ""],
     queryFn: () => listCalls(selectedId ?? undefined),
