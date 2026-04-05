@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
@@ -11,7 +11,7 @@ import { listProspects, listMessages, sendMessage } from "@/services/api";
 import { format } from "date-fns";
 import { Send } from "lucide-react";
 
-export default function MessagingPage() {
+function MessagingContent() {
   const searchParams = useSearchParams();
   const prospectIdParam = searchParams.get("prospect");
   const [selectedId, setSelectedId] = useState<string | null>(prospectIdParam);
@@ -107,5 +107,13 @@ export default function MessagingPage() {
         </Card>
       </div>
     </DashboardLayout>
+  );
+}
+
+export default function MessagingPage() {
+  return (
+    <Suspense fallback={<DashboardLayout><p>Loading...</p></DashboardLayout>}>
+      <MessagingContent />
+    </Suspense>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
@@ -10,7 +10,7 @@ import { listProspects, listCalls, initiateCall } from "@/services/api";
 import { format } from "date-fns";
 import { Phone } from "lucide-react";
 
-export default function CallsPage() {
+function CallsContent() {
   const searchParams = useSearchParams();
   const prospectIdParam = searchParams.get("prospect");
   const [selectedId, setSelectedId] = useState<string | null>(prospectIdParam);
@@ -97,5 +97,13 @@ export default function CallsPage() {
         </Card>
       </div>
     </DashboardLayout>
+  );
+}
+
+export default function CallsPage() {
+  return (
+    <Suspense fallback={<DashboardLayout><p>Loading...</p></DashboardLayout>}>
+      <CallsContent />
+    </Suspense>
   );
 }
